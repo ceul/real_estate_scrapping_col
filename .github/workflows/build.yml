@@ -30,4 +30,4 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm ci
-      - run: nest build
+      - run: npm run build
