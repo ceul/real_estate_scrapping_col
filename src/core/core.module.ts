@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PropiedadService } from './business/propiedad-service';
 import { PropiedadController } from './controllers/propiedad/propiedad.controller';
 import { Propiedad } from './models/propiedad.entity';
+import { SchedulerService } from './services/scheduler/scheduler.service';
 
 @Module({
     imports: [
@@ -11,7 +12,7 @@ import { Propiedad } from './models/propiedad.entity';
         HttpModule
     ],
     controllers: [PropiedadController],
-    providers: [PropiedadService],
+    providers: [PropiedadService, SchedulerService],
 
 
 })
