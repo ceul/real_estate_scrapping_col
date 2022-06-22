@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Propiedad } from "./propiedad.entity";
 
 @Entity('plataforma')
 export class Plataforma {
@@ -10,4 +11,7 @@ export class Plataforma {
 
     @Column()
     url: string;
+
+    @OneToMany(type => Propiedad, propiedad => propiedad.fk_barrio)
+    propiedades : Propiedad[];
 }
