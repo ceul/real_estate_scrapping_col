@@ -56,7 +56,7 @@ export class PropiedadService {
                 createPropiedadDTO.fk_plataforma = 1
                 createPropiedadDTO.fk_barrio = 1
                 console.log(createPropiedadDTO)
-                this.repository.save(createPropiedadDTO)
+                //this.repository.save(createPropiedadDTO)
             }
             return response.data;
         } catch (error) {

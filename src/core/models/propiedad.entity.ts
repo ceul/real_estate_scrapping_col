@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Barrio } from "./barrio.entity";
+import { Plataforma } from "./plataforma.entity";
+import { TipoNegocio } from "./tipo_negocio.entity";
+import { TipoPropiedad } from "./tipo_propiedad.entity";
 
 @Entity('propiedades')
 export class Propiedad {
@@ -39,21 +43,19 @@ export class Propiedad {
   @Column()
   estrato: string;
 
-  @Column({type: 'int'})
-  fk_tipo_negocio: number;
+  @ManyToOne(type => TipoNegocio, tipo_negocio => tipo_negocio.id)
+  fk_tipo_negocio: TipoNegocio;
 
 
-  @Column({type: 'int'})
-  fk_tipo_propiedad: number;
+  @ManyToOne(type => TipoPropiedad, tipo_propiedad => tipo_propiedad.id)
+  fk_tipo_propiedad: TipoPropiedad;
 
 
-  @Column({type: 'int'})
-  fk_plataforma: number;
+  @ManyToOne(type => Plataforma, plataforma => plataforma.id)
+  fk_plataforma: Plataforma;
 
 
-  @Column({type: 'int'})
-  fk_barrio: number;
-
-
+  @ManyToOne(type => Barrio, barrio => barrio.id)
+  fk_barrio: Barrio;
 
 }

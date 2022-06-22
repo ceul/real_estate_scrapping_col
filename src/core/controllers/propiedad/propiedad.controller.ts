@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
-import { PropiedadService } from '../../business/propiedad-service';
+import { PropiedadService } from 'src/core/business/propiedad-service';
+import { CreatePropiedadDTO } from 'src/core/models/create-propiedad.dto';
 
 @Controller('/propiedad')
 export class PropiedadController {
@@ -15,15 +16,15 @@ export class PropiedadController {
 
     }
     
-    /*@Post()
-    create(@Body() input: CreateEventDTO){
+    @Post()
+    create(@Body() input: CreatePropiedadDTO){
         return input
     }
     
     @Patch(':id')
-    update(@Param('id') id, @Body() input: UpdateEventDTO){
+    update(@Param('id') id){
 
-    }*/
+    }
     
     @Delete(':id')
     @HttpCode(204)
