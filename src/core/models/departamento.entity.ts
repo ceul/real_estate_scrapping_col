@@ -9,6 +9,6 @@ export class Departamento {
     @Column()
     nombre: string;
 
-    @OneToMany(type => Ciudad, ciudad => ciudad.fk_departamento)
+    @OneToMany(() => Ciudad, ciudad => ciudad.fk_departamento)
     ciudades: Ciudad[]
 }

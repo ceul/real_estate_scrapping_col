@@ -2,9 +2,9 @@ export class CreatePropiedadDTO {
     id: number;
     id_plataforma: string;
     area: number;
-    nro_cuartos: string;
-    nro_banos: string;
-    nro_garajes: string;
+    nro_cuartos: number;
+    nro_banos: number;
+    nro_garajes: number;
     latitud: string;
     longitud: string;
     valor_venta: number;

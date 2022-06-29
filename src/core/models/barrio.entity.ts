@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Ciudad } from "./ciudad.entity";
 import { Propiedad } from "./propiedad.entity";
 
@@ -10,9 +10,10 @@ export class Barrio {
     @Column()
     nombre: string;
 
-    @ManyToOne(type => Ciudad, ciudad => ciudad.id)
+    @ManyToOne(() => Ciudad, ciudad => ciudad.id)
+    @JoinColumn({ name: 'fk_ciudad', referencedColumnName: "id" })
     fk_ciudad: Ciudad;
 
-    @OneToMany(type => Propiedad, propiedad => propiedad.fk_barrio)
+    @OneToMany(() => Propiedad, propiedad => propiedad.barrio)
     propiedades : Propiedad[];
 }

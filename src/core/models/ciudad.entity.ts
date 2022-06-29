@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Barrio } from "./barrio.entity";
 import { Departamento } from "./departamento.entity";
 
@@ -7,12 +7,13 @@ export class Ciudad {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column("varchar", { length: 256 })
     nombre: string;
 
-    @ManyToOne(type => Departamento, departamento => departamento.id)
+    @ManyToOne(() => Departamento, departamento => departamento.id)
+    @JoinColumn({ name: 'fk_departamento', referencedColumnName: "id" })
     fk_departamento: Departamento;
 
-    @OneToMany(type => Barrio, barrio => barrio.fk_ciudad)
+    @OneToMany(() => Barrio, barrio => barrio.fk_ciudad)
     barrios: Barrio;
 }

@@ -1,29 +1,29 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Barrio } from "./barrio.entity";
 import { Plataforma } from "./plataforma.entity";
 import { TipoNegocio } from "./tipo_negocio.entity";
 import { TipoPropiedad } from "./tipo_propiedad.entity";
 
-@Entity('propiedades')
+@Entity('propiedad')
 export class Propiedad {
 
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   id_plataforma: string;
 
-  @Column({type: 'double'})
+  @Column({ type: 'double' })
   area: number;
 
-  @Column()
-  nro_cuartos: string;
+  @Column({ type: 'double' })
+  nro_cuartos: number;
 
-  @Column()
-  nro_banos: string;
+  @Column({ type: 'double' })
+  nro_banos: number;
 
-  @Column()
-  nro_garajes: string;
+  @Column({ type: 'double' })
+  nro_garajes: number;
 
   @Column()
   latitud: string;
@@ -31,31 +31,33 @@ export class Propiedad {
   @Column()
   longitud: string;
 
-  @Column({type: 'double'})
+  @Column({ type: 'double' })
   valor_venta: number;
 
-  @Column({type: 'double'})
+  @Column({ type: 'double' })
   valor_arrendo: number;
 
-  @Column({type: 'double'})
+  @Column({ type: 'double' })
   consto_administracion: number;
 
   @Column()
   estrato: string;
 
-  @ManyToOne(type => TipoNegocio, tipo_negocio => tipo_negocio.id)
-  fk_tipo_negocio: TipoNegocio;
+  @ManyToOne(() => Plataforma, (plataforma: Plataforma) => plataforma.propiedades, {
+    nullable: false
+  })
+  @JoinColumn({ name: 'fk_plataforma', referencedColumnName: "id" })
+  plataforma: Plataforma;
 
+  @ManyToOne(() => Barrio, barrio => barrio.propiedades)
+  @JoinColumn({ name: 'fk_barrio', referencedColumnName: "id" })
+  barrio: Barrio;
 
-  @ManyToOne(type => TipoPropiedad, tipo_propiedad => tipo_propiedad.id)
-  fk_tipo_propiedad: TipoPropiedad;
+  @ManyToOne(() => TipoNegocio, tipo_negocio => tipo_negocio.propiedades)
+  @JoinColumn({ name: 'fk_tipo_negocio', referencedColumnName: "id" })
+  tipo_negocio: TipoNegocio;
 
-
-  @ManyToOne(type => Plataforma, plataforma => plataforma.id)
-  fk_plataforma: Plataforma;
-
-
-  @ManyToOne(type => Barrio, barrio => barrio.id)
-  fk_barrio: Barrio;
-
+  @ManyToOne(() => TipoPropiedad, tipo_propiedad => tipo_propiedad.propiedades)
+  @JoinColumn({ name: 'fk_tipo_propiedad', referencedColumnName: "id" })
+  tipo_propiedad: TipoPropiedad;
 }

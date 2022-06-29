@@ -9,6 +9,6 @@ export class TipoPropiedad {
     @Column()
     nombre: string;
 
-    @OneToMany(type => Propiedad, propiedad => propiedad.fk_barrio)
+    @OneToMany(() => Propiedad, propiedad => propiedad.tipo_propiedad)
     propiedades : Propiedad[];
 }

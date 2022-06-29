@@ -12,6 +12,6 @@ export class Plataforma {
     @Column()
     url: string;
 
-    @OneToMany(type => Propiedad, propiedad => propiedad.fk_barrio)
+    @OneToMany(() => Propiedad, propiedad => propiedad.plataforma)
     propiedades : Propiedad[];
 }
