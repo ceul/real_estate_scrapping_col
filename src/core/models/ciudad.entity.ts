@@ -14,6 +14,6 @@ export class Ciudad {
     @JoinColumn({ name: 'fk_departamento', referencedColumnName: "id" })
     fk_departamento: Departamento;
 
-    @OneToMany(() => Barrio, barrio => barrio.fk_ciudad)
+    @OneToMany(() => Barrio, barrio => barrio.ciudad)
     barrios: Barrio;
 }

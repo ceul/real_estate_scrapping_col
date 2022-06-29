@@ -12,7 +12,7 @@ export class Barrio {
 
     @ManyToOne(() => Ciudad, ciudad => ciudad.id)
     @JoinColumn({ name: 'fk_ciudad', referencedColumnName: "id" })
-    fk_ciudad: Ciudad;
+    ciudad: Ciudad;
 
     @OneToMany(() => Propiedad, propiedad => propiedad.barrio)
     propiedades : Propiedad[];
