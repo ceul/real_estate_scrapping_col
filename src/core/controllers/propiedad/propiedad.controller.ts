@@ -8,12 +8,28 @@ export class PropiedadController {
     constructor(private propiedadService: PropiedadService) {}
 
     @Get(':id')
-    findOne(@Param('id') id){}
+    findOne(@Param('id') id){
+        return this.propiedadService.findOne(id)
+    }
 
     @Get()
     findAll(){
-        return this.propiedadService.getFromFincaRaiz()
+        return this.propiedadService.findAll()
+    }
 
+    @Get('/mean/:ciudad')
+    mean(@Param('ciudad') ciudad){
+        return this.propiedadService.mean(ciudad)
+    }
+
+    @Get()
+    median(){
+        return this.propiedadService.findAll()
+    }
+
+    @Get()
+    mode(){
+        return this.propiedadService.findAll()
     }
     
     @Post()
