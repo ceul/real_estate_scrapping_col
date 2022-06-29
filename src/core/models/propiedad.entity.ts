@@ -16,14 +16,14 @@ export class Propiedad {
   @Column({ type: 'double' })
   area: number;
 
-  @Column({ type: 'double' })
-  nro_cuartos: number;
+  @Column()
+  nro_cuartos: string;
 
-  @Column({ type: 'double' })
-  nro_banos: number;
+  @Column()
+  nro_banos: string;
 
-  @Column({ type: 'double' })
-  nro_garajes: number;
+  @Column()
+  nro_garajes: string;
 
   @Column()
   latitud: string;
