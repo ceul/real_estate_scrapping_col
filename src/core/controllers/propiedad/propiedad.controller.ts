@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
-import { PropiedadService } from 'src/core/business/propiedad-service';
-import { CreatePropiedadDTO } from 'src/core/models/create-propiedad.dto';
+import { PropiedadService } from '../../business/propiedad-service';
+import { CreatePropiedadDTO } from '../../models/create-propiedad.dto';
 
 @Controller('/propiedad')
 export class PropiedadController {
@@ -17,7 +17,7 @@ export class PropiedadController {
         return this.propiedadService.findAll()
     }
 
-    @Get('/mean/:ciudad')
+    @Get('mean/:ciudad')
     mean(@Param('ciudad') ciudad){
         return this.propiedadService.mean(ciudad)
     }

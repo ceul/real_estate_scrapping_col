@@ -30,14 +30,16 @@ export class PropiedadService {
         return response;
     }
 
-    async mean(name: string) {
-        console.log('entre  :'+name)
-        const response = this.repository.createQueryBuilder('p')
-        .select("AVG(p.valor_venta)", "mean")
+    /*SELECT AVG(propiedad.valor_venta) as mean from propiedad inner join barrio on 
+    propiedad.fk_barrio = barrio.id INNER JOIN ciudad ON 
+    barrio.fk_ciudad = ciudad.id where ciudad.nombre = "medellin";*/
+
+    async mean(nombre: string) {
+        const response = await this.repository.createQueryBuilder('propiedad')
+        .select("AVG(propiedad.valor_venta)", "mean")
         .innerJoin("propiedad.barrio", "barrio")
         .innerJoin("barrio.ciudad", "ciudad")
-        .where("ciudad.nombre = :nombre", {name})
-        .getOne()
+        .where("ciudad.nombre = :nombre", {nombre: nombre}).getRawOne()
         return response;
     }
 
@@ -65,9 +67,9 @@ export class PropiedadService {
                 let createPropiedadDTO = new Propiedad();
                 createPropiedadDTO.id_plataforma = response.data.hits.hits[index]['_id']
                 createPropiedadDTO.area = response.data.hits.hits[index]['_source']['listing']['area']
-                createPropiedadDTO.nro_cuartos =  parseInt(response.data.hits.hits[index]['_source']['listing']['rooms']['name'])
-                createPropiedadDTO.nro_banos =  parseInt(response.data.hits.hits[index]['_source']['listing']['baths']['name'])
-                createPropiedadDTO.nro_garajes =  parseInt(response.data.hits.hits[index]['_source']['listing']['garages']['name'])
+                createPropiedadDTO.nro_cuartos =  (response.data.hits.hits[index]['_source']['listing']['rooms']['name'])
+                createPropiedadDTO.nro_banos =  (response.data.hits.hits[index]['_source']['listing']['baths']['name'])
+                createPropiedadDTO.nro_garajes =  (response.data.hits.hits[index]['_source']['listing']['garages']['name'])
                 createPropiedadDTO.latitud = '1'
                 createPropiedadDTO.longitud = '1'
                 createPropiedadDTO.valor_venta = parseInt(response.data.hits.hits[index]['_source']['listing']['price'])
@@ -87,7 +89,7 @@ export class PropiedadService {
                 barrio.id = 1
                 createPropiedadDTO.barrio = barrio
                 console.log(createPropiedadDTO)
-                this.repository.save(createPropiedadDTO)
+                await this.repository.save(createPropiedadDTO)
             }
             return response.data;
         } catch (error) {
