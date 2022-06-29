@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Ciudad } from 'src/core/models/ciudad.entity';
+import { Ciudad } from '../../models/ciudad.entity';
 import { Repository } from 'typeorm';
 import { PropiedadService } from '../../business/propiedad-service';
 
