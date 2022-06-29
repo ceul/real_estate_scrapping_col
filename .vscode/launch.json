@@ -15,12 +15,7 @@
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
-            ],
-            "debug.javascript.terminalOptions": {
-                "skipFiles": [
-                    "<node_internals>/**"
-                ]
-            },
+            ]
         }
     ]
 }
