@@ -34,16 +34,48 @@ export class PropiedadService {
     propiedad.fk_barrio = barrio.id INNER JOIN ciudad ON 
     barrio.fk_ciudad = ciudad.id where ciudad.nombre = "medellin";*/
 
-    async mean(nombre: string) {
+    async mean(query) {
+        let where = ''
+        if(query.ciudad != null && query.ciudad != undefined){
+            where = where + `ciudad.nombre = '${query.ciudad}'`
+        }
+        if(query.estrato != null && query.estrato != undefined){
+            where = where != '' ?  `${where} AND propiedad.estrato = '${query.estrato}'` : `propiedad.estrato = '${query.estrato}'`
+        }
+        if(query.nro_cuartos != null && query.nro_cuartos != undefined){
+            where = where != '' ? `${where} AND propiedad.nro_cuartos = '${query.nro_cuartos}'` : `propiedad.nro_cuartos = '${query.nro_cuartos}'`
+        }
+        if(query.nro_banos != null && query.nro_banos != undefined){
+            where = where != '' ? `${where} AND propiedad.nro_banos = '${query.nro_banos}'` : `propiedad.nro_banos = '${query.nro_banos}'`
+        }
+        if(query.nro_garajes != null && query.nro_garajes != undefined){
+            where = where != '' ? `${where} AND propiedad.nro_garajes = '${query.nro_garajes}'` : `propiedad.nro_garajes = '${query.nro_garajes}'`
+        }
+        if(query.metro_max != null && query.metros_max != undefined){
+            where = where != '' ? `${where} AND propiedad.area >= '${query.metros_max}'` : `propiedad.area >= '${query.metros_max}'`
+        }
+        if(query.metromin != null && query.metros_min != undefined){
+            where = where != '' ? `${where} AND propiedad.area <= '${query.metros_min}'` : `propiedad.area <= '${query.metros_min}'`
+        }
+        if(query.arrendo_max != null && query.arrendo_max != undefined){
+            where = where != '' ? `${where} AND propiedad.valor_arrendo >= '${query.arrendo_max}'` : `propiedad.valor_arrendo >= '${query.arrendo_max}'`
+        }
+        if(query.metromin != null && query.arrendo_min != undefined){
+            where = where != '' ? `${where} AND propiedad.valor_arrendo <= '${query.arrendo_min}'` : `propiedad.valor_arrendo <= '${query.arrendo_min}'`
+        }
+
+
         const response = await this.repository.createQueryBuilder('propiedad')
-        .select("AVG(propiedad.valor_venta)", "mean")
+        .select("AVG(propiedad.valor_venta)", "costo_promedio")
+        .addSelect("AVG(propiedad.area)", "area_promedio")
+        .addSelect("AVG(propiedad.valor_venta)/AVG(propiedad.area)", "costo_metro2_promedio")
         .innerJoin("propiedad.barrio", "barrio")
         .innerJoin("barrio.ciudad", "ciudad")
-        .where("ciudad.nombre = :nombre", {nombre: nombre}).getRawOne()
+        .where(where).getRawOne()
         return response;
     }
 
-    async getFromFincaRaiz(ciudad: string) {
+    async getFromFincaRaiz(ciudad: string, id: number) {
         try {
             console.log("getFromFincRaiz Starts : " + ciudad)
             let fincaRaizRequest = {
@@ -75,7 +107,7 @@ export class PropiedadService {
                 createPropiedadDTO.valor_venta = parseInt(response.data.hits.hits[index]['_source']['listing']['price'])
                 createPropiedadDTO.valor_arrendo = 0
                 createPropiedadDTO.consto_administracion = 0
-                createPropiedadDTO.estrato = '3'//response.data.hits.hits[index]['_source']['listing']['stratum']['slug']
+                createPropiedadDTO.estrato = response.data.hits.hits[index]['_source']['listing']['stratum']['slug']
                 let tipo_negocio = new TipoNegocio()
                 tipo_negocio.id = 1
                 createPropiedadDTO.tipo_negocio = tipo_negocio
@@ -86,7 +118,7 @@ export class PropiedadService {
                 plataforma.id = 1
                 createPropiedadDTO.plataforma = plataforma
                 let barrio = new Barrio()
-                barrio.id = 1
+                barrio.id = id
                 createPropiedadDTO.barrio = barrio
                 console.log(createPropiedadDTO)
                 await this.repository.save(createPropiedadDTO)
