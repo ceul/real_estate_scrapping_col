@@ -24,7 +24,7 @@ export class SchedulerService {
             })
             console.log(ciudades)
             for (let index = 0; index < ciudades.length; index++) {
-                this.propiedadService.getFromFincaRaiz(ciudades[index].nombre)
+                this.propiedadService.getFromFincaRaiz(ciudades[index].nombre, ciudades[index].id )
             }
             await setTimeout(() => this.scheduler(), 86400000)
         } catch (error) {
