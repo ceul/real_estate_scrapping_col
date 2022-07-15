@@ -89,8 +89,8 @@ INSERT INTO tipo_propiedad (nombre) VALUES ('apartamento');
 INSERT INTO tipo_propiedad (nombre) VALUES ('lote');
 INSERT INTO tipo_propiedad (nombre) VALUES ('local');
 
-INSERT INTO plataforma (nombre, url) VALUES ('finca raiz', 'www.fincaraiz.com.co');
-INSERT INTO plataforma (nombre, url) VALUES ('metrocuadrado', 'www.metrocuadrado.com');
+INSERT INTO plataforma (nombre, url) VALUES ('finca raiz', 'https://api.fincaraiz.com.co/document/api/1.0/listing/search');
+INSERT INTO plataforma (nombre, url) VALUES ('metrocuadrado', 'https://www.metrocuadrado.com/rest-search/search?realEstateBusinessList=venta&realEstateTypeList=casa,edificio-de-apartamentos,edificio-de-oficinas,consultorio,finca,lote,bodega,local,oficina,apartamento&from=0&size=50');
 
 INSERT INTO departamento (nombre) VALUES ('antioquia');
 INSERT INTO departamento (nombre) VALUES ('valle del cauca');
