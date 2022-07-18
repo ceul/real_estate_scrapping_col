@@ -13,7 +13,7 @@ export class Propiedad {
   @Column({ unique: true })
   id_plataforma: string;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'real' })
   area: number;
 
   @Column()
@@ -31,13 +31,13 @@ export class Propiedad {
   @Column()
   longitud: string;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'real' })
   valor_venta: number;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'real' })
   valor_arrendo: number;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'real' })
   consto_administracion: number;
 
   @Column()

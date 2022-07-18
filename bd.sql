@@ -2,16 +2,16 @@ DROP DATABASE real_state;
 
 CREATE DATABASE real_state;
 
-use real_state;
+\c real_state;
 
 CREATE TABLE departamento(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     nombre VARCHAR(256) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE ciudad(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     nombre VARCHAR(256) NOT NULL,
     fk_departamento INT NOT NULL,
     PRIMARY KEY (id),
@@ -20,7 +20,7 @@ CREATE TABLE ciudad(
 );
 
 CREATE TABLE barrio(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     nombre VARCHAR(256),
     fk_ciudad INT NOT NULL,
     PRIMARY KEY (id),
@@ -29,37 +29,37 @@ CREATE TABLE barrio(
 );
 
 CREATE TABLE tipo_negocio(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     nombre VARCHAR(32) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE tipo_propiedad(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     nombre VARCHAR(32) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE plataforma(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     nombre VARCHAR(32) NOT NULL,
     url VARCHAR(512) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE propiedad(
-    id INT NOT NULL AUTO_INCREMENT,
+    id SERIAL NOT NULL,
     id_plataforma VARCHAR(128),
-    area DOUBLE(13,2) NOT NULL,
+    area real NOT NULL,
     nro_cuartos VARCHAR(128),
     nro_banos VARCHAR(128),
     nro_garajes VARCHAR(128),
     latitud VARCHAR(4),
     longitud VARCHAR(4),
-    valor_venta DOUBLE(13,2),
-    valor_arrendo DOUBLE(13,2),
-    consto_administracion DOUBLE(13,2),
-    estrato varchar(2),
+    valor_venta real,
+    valor_arrendo real,
+    consto_administracion real,
+    estrato varchar(12),
     fk_tipo_negocio INT NOT NULL,
     fk_tipo_propiedad INT NOT NULL,
     fk_plataforma INT NOT NULL,

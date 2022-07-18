@@ -10,19 +10,28 @@ import { Plataforma } from './core/models/plataforma.entity';
 import { TipoNegocio } from './core/models/tipo_negocio.entity';
 import { TipoPropiedad } from './core/models/tipo_propiedad.entity';
 import { RouterModule } from '@nestjs/core';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: '127.0.0.1',
-    port: 3306,
-    username: 'root',
-    password: 'admin',
-    database: 'real_state',
-    autoLoadEntities: true,
-    entities: [Barrio,Ciudad,Departamento,Plataforma,TipoNegocio,TipoPropiedad, Propiedad],
-    synchronize: true
-  }),CoreModule
-],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST'),
+        port: +configService.get<number>('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
+        autoLoadEntities: true,
+        entities: [Barrio, Ciudad, Departamento, Plataforma, TipoNegocio, TipoPropiedad, Propiedad],
+        synchronize: false
+      }),
+      inject: [ConfigService],
+    }),
+    CoreModule
+  ],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
