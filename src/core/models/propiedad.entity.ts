@@ -31,13 +31,13 @@ export class Propiedad {
   @Column()
   longitud: string;
 
-  @Column({ type: 'real' })
+  @Column({ type: 'double precision' })
   valor_venta: number;
 
-  @Column({ type: 'real' })
+  @Column({ type: 'double precision' })
   valor_arrendo: number;
 
-  @Column({ type: 'real' })
+  @Column({ type: 'double precision' })
   consto_administracion: number;
 
   @Column()
