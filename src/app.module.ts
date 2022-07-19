@@ -27,7 +27,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         autoLoadEntities: true,
         entities: [Barrio, Ciudad, Departamento, Plataforma, TipoNegocio, TipoPropiedad, Propiedad],
         synchronize: false,
-        ssl: true
+        ssl: { rejectUnauthorized: false }
+
       }),
       inject: [ConfigService],
     }),
