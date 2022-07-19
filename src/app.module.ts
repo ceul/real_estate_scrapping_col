@@ -26,7 +26,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         database: configService.get('DB_NAME'),
         autoLoadEntities: true,
         entities: [Barrio, Ciudad, Departamento, Plataforma, TipoNegocio, TipoPropiedad, Propiedad],
-        synchronize: false
+        synchronize: false,
+        ssl: true
       }),
       inject: [ConfigService],
     }),
